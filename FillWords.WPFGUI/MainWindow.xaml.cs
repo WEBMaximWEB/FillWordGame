@@ -58,8 +58,7 @@ namespace FillWords.WPFGUI
             for (int i = 0; i < height; i += Convert.ToInt32(height / 8))
                 DrawField(0, i, width, i);
 
-            canvas.MaxHeight = width;
-            canvas.MinWidth = height;
+            canvas.Width = canvas.Height;
         }
 
         void DrawField(double x1, double y1, double x2, double y2)
