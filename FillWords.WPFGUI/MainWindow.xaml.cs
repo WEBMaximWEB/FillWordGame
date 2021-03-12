@@ -54,15 +54,17 @@ namespace FillWords.WPFGUI
             var height = canvas.ActualHeight;
 
             for (int i = 0; i < width; i += Convert.ToInt32(width / 8))
-                AddLineToBackground(i, 0, i, height);
-            for (int j = 0; j < width; j += Convert.ToInt32(height / 8))
-                AddLineToBackground(0, j, width, j);
+                DrawField(i, 0, i, height);
+            for (int i = 0; i < height; i += Convert.ToInt32(height / 8))
+                DrawField(0, i, width, i);
+
+            canvas.MaxHeight = width;
+            canvas.MinWidth = height;
         }
 
-        void AddLineToBackground(double x1, double y1, double x2, double y2)
+        void DrawField(double x1, double y1, double x2, double y2)
         {
-            var line = new Line()
-            {
+            var line = new Line(){
                 X1 = x1,
                 Y1 = y1,
                 X2 = x2,
@@ -71,7 +73,6 @@ namespace FillWords.WPFGUI
                 StrokeThickness = 1,
                 SnapsToDevicePixels = true
             };
-            line.SetValue(RenderOptions.EdgeModeProperty, EdgeMode.Aliased);
             canvas.Children.Add(line);
         }
     }
