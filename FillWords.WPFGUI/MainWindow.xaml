@@ -41,9 +41,14 @@
 				Width="110"
 				BorderBrush="#9A6111"
 				>Выход</Button>
-            <DockPanel Name="dpCanvas" VerticalAlignment="Stretch">
-                <Canvas Name="canvas" SizeChanged="canvas_SizeChanged"></Canvas>
-            </DockPanel>
+
         </StackPanel>
+        <DockPanel>
+            <Canvas x:Name="canvas"
+					Visibility="Hidden"
+                    SizeChanged="Canvas_SizeChanged"
+                    Background="#9A9898" 
+                    Margin="10,80,10,10"></Canvas>
+        </DockPanel>
     </Grid>
 </Window>

@@ -23,6 +23,7 @@ namespace FillWords.WPFGUI
         public void ButtonStart_Click(object sender, RoutedEventArgs e)
         {
             StackMenu.Visibility = Visibility.Collapsed;
+            canvas.Visibility = Visibility.Visible;
         }
 
         private void ButtonContinue_Click(object sender, RoutedEventArgs e)
@@ -45,14 +46,33 @@ namespace FillWords.WPFGUI
             InitializeComponent();
         }
 
-        private void canvas_SizeChanged(object sender, SizeChangedEventArgs e)
+        private void Canvas_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             canvas.Children.Clear();
 
-            foreach (var boardCell in boardCells)
+            var width = canvas.ActualWidth;
+            var height = canvas.ActualHeight;
+
+            for (int i = 0; i < width; i += Convert.ToInt32(width / 8))
+                AddLineToBackground(i, 0, i, height);
+            for (int j = 0; j < width; j += Convert.ToInt32(height / 8))
+                AddLineToBackground(0, j, width, j);
+        }
+
+        void AddLineToBackground(double x1, double y1, double x2, double y2)
+        {
+            var line = new Line()
             {
-                boardCell.Render();
-            }
+                X1 = x1,
+                Y1 = y1,
+                X2 = x2,
+                Y2 = y2,
+                Stroke = Brushes.Black,
+                StrokeThickness = 1,
+                SnapsToDevicePixels = true
+            };
+            line.SetValue(RenderOptions.EdgeModeProperty, EdgeMode.Aliased);
+            canvas.Children.Add(line);
         }
     }
 }
