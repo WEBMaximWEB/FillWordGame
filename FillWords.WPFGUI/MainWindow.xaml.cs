@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using FillWords.Logic;
 
 namespace FillWords.WPFGUI
 {
@@ -33,7 +34,9 @@ namespace FillWords.WPFGUI
 
         private void ButtonStatistic_Click(object sender, RoutedEventArgs e)
         {
-            //Click
+            Rating.CheckRating(100, "Max");
+            var window1 = new StatisticWindow();
+            window1.Show();
         }
 
         private void ButtonExit_Click(object sender, RoutedEventArgs e)

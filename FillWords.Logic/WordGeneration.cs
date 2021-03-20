@@ -12,7 +12,8 @@ namespace FillWords.Logic
 
         public static List<string> listWords = new List<string>();
     }
-     public static class WordGeneration
+    
+    public static class WordGeneration
     {
         public static char[,] GetWordGeneration(int width)
         {

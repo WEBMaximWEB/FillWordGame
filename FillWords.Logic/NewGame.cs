@@ -5,7 +5,7 @@ using System.Text;
 
 namespace FillWords.Logic
 {
-    class NewGame
+    public static class NewGame
     {
         public static void DrawNewGame()
         {
@@ -17,7 +17,7 @@ namespace FillWords.Logic
                 //ForConsole.WriteInConsole(board, 8);
                 for (int i = 0; i < Sneak.listWords.Count; i++)
                     Console.WriteLine(Sneak.listWords[i]);
-                Menu.Back();
+                //Menu.Back();
                 Task.Delay(120).Wait();
                 Console.SetCursorPosition(0, 0);
             }

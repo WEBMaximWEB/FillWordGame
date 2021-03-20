@@ -5,7 +5,7 @@ using System.Text;
 
 namespace FillWords.Logic
 {
-    class Continue
+    public static class Continue
     {
         public static void DrawContinue()
         {
@@ -13,7 +13,7 @@ namespace FillWords.Logic
             while (true)
             {
                 Console.WriteLine("Здесь будет Продолжить игру");
-                Menu.Back();
+                //Menu.Back();
                 Task.Delay(120).Wait();
                 Console.SetCursorPosition(0, 0);
             }
