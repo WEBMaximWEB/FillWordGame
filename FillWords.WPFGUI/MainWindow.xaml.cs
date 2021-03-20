@@ -34,14 +34,14 @@ namespace FillWords.WPFGUI
 
         private void ButtonStatistic_Click(object sender, RoutedEventArgs e)
         {
-            Rating.CheckRating(100, "Max");
+            //Rating.CheckRating(100, "Max");
             var window1 = new StatisticWindow();
             window1.Show();
         }
 
         private void ButtonExit_Click(object sender, RoutedEventArgs e)
         {
-            //Click
+            this.Close();
         }
 
         public MainWindow()

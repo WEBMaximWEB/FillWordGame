@@ -21,11 +21,11 @@ namespace FillWords.WPFGUI
         public StatisticWindow()
         {
             string[] Arr = Rating.GetRating();
-            for (int i = 0; i < Arr.Length; i++)
+            for (int i = 1; i <= Arr.Length; i++)
             {
                 InitializeComponent();
                 var textRating = new TextBlock();
-                textRating.Text = Arr[i];
+                textRating.Text = i.ToString() + ") " + Arr[i - 1];
                 field.Children.Add(textRating);
             }
         }
