@@ -25,7 +25,15 @@ namespace FillWords.WPFGUI
         {
             StackMenu.Visibility = Visibility.Collapsed;
             canvas.Visibility = Visibility.Visible;
+            ButtonBack.Visibility = Visibility.Visible;
         }
+
+        /*public void ButtonBack_Click(object sender, RoutedEventArgs e)
+        {
+            StackMenu.Visibility = Visibility.Visible;
+            canvas.Visibility = Visibility.Hidden;
+            ButtonBack.Visibility = Visibility.Hidden;
+        }*/
 
         private void ButtonContinue_Click(object sender, RoutedEventArgs e)
         {
@@ -60,8 +68,7 @@ namespace FillWords.WPFGUI
                 DrawField(i, 0, i, height);
             for (int i = 0; i < height; i += Convert.ToInt32(height / 8))
                 DrawField(0, i, width, i);
-
-            canvas.Width = canvas.Height;
+            canvas.Height = width; 
         }
 
         void DrawField(double x1, double y1, double x2, double y2)
