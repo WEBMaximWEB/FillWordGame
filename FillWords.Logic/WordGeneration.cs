@@ -22,7 +22,7 @@ namespace FillWords.Logic
             while (CheckFieldArea(board, width))
             {
                 int maxCount = rnd.Next(2, 19);
-                int count = 0;
+                int count = 1;
                 board = AddStartLetter(board, width);
                 count++;
                 while (count <= maxCount && CheckAllDerections(board, width, Sneak.x.Peek(), Sneak.y.Peek()))
@@ -32,7 +32,6 @@ namespace FillWords.Logic
                 }
                 while (!CheckField(board, width))
                 {
-
                     board[Sneak.x.Pop(), Sneak.y.Pop()] = null;
                     count--;
                     if (count < 3)
@@ -53,7 +52,7 @@ namespace FillWords.Logic
         public static char[,] WriteWordsInBoard(int width)
         {
             char[,] board = new char[width, width];
-            string[] words = File.ReadAllLines("word" + "s" + ".txt");
+            string[] words = File.ReadAllLines("words" + ".txt");
             Random rnd = new Random();
             while (Sneak.len.Count != 0)
             {
@@ -72,7 +71,8 @@ namespace FillWords.Logic
             return board;
         }
 
-        static bool CheckField(string[,] board, int width)
+        //проверка на наличие "закрытой" ячейки
+        private static bool CheckField(string[,] board, int width)
         {
             for (int i = 0; i < width; i++)
             {
@@ -86,7 +86,7 @@ namespace FillWords.Logic
             return true;
         }
 
-        static bool CheckFieldArea(string[,] board, int width)
+        private static bool CheckFieldArea(string[,] board, int width)
         {
             for (int i = 0; i < width; i++)
             {
@@ -99,7 +99,7 @@ namespace FillWords.Logic
             return false;
         }
 
-        static bool CheckDerections(string[,] board, int width, int x, int y, int direction)
+        private static bool CheckDerections(string[,] board, int width, int x, int y, int direction)
         {
             switch (direction)
             {
@@ -127,7 +127,7 @@ namespace FillWords.Logic
             return false;
         }
 
-        public static bool CheckAllDerections(string[,] board, int width, int x, int y)
+        private static bool CheckAllDerections(string[,] board, int width, int x, int y)
         {
             if (CheckDerections(board, width, x, y, 0))
                 return true;
@@ -141,7 +141,7 @@ namespace FillWords.Logic
                 return false;
         }
 
-        static string[,] AddStartLetter(string[,] board, int width)
+        private static string[,] AddStartLetter(string[,] board, int width)
         {
             Random rnd = new Random();
             int x, y;
@@ -156,7 +156,7 @@ namespace FillWords.Logic
             return board;
         }
 
-        static string[,] AddLetter(string[,] board, int width, int x, int y)
+        private static string[,] AddLetter(string[,] board, int width, int x, int y)
         {
             //if (!CheckAllDerections(board, width, x, y))
             {
