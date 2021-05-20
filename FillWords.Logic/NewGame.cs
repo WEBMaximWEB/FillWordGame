@@ -14,7 +14,6 @@ namespace FillWords.Logic
             while (true)
             {
                 char[,] board = WordGeneration.GetWordGeneration(8);
-                //ForConsole.WriteInConsole(board, 8);
                 for (int i = 0; i < Sneak.listWords.Count; i++)
                     Console.WriteLine(Sneak.listWords[i]);
                 //Menu.Back();

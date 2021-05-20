@@ -47,8 +47,17 @@
             <Canvas x:Name="canvas"
 					Visibility="Hidden"
                     SizeChanged="Canvas_SizeChanged"
-                    Background="#9A9898" 
-                    Margin="10,80"></Canvas>
+                    Background="#9A9898"
+                    MinWidth="50"
+                    MinHeight="250"
+                    Margin="10,10, 10, 10"
+                    DockPanel.Dock="Bottom"></Canvas>
+            <Button x:Name="ButtonBack"
+                    DockPanel.Dock="Top"
+                    Height="20"
+                    Visibility="Hidden"
+                    Click="ButtonBack_Click"
+                    >Назад</Button>
         </DockPanel>
     </Grid>
 </Window>

@@ -7,21 +7,6 @@ namespace FillWords.Logic
 {
     public static class Menu
     {
-        public static void MenuRendering(int flag)
-        {
-            string[] text = new[] { "Новая игра", "Продолжить", "Рейтинг", "Выход" };
-            for (int i = 0; i < text.Length; i++)
-            {
-                if (flag == i)
-                {
-                    Console.ForegroundColor = ConsoleColor.Green; //меняем текст
-                    Console.WriteLine(text[i]);
-                    Console.ResetColor(); // сбрасываем в стандартный
-                }
-                else
-                    Console.WriteLine(text[i]);
-            }
-        }
         public static int ItemSelection(int flag)
         {
             ConsoleKey key = Console.ReadKey(true).Key;

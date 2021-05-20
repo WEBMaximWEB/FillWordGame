@@ -28,12 +28,12 @@ namespace FillWords.WPFGUI
             ButtonBack.Visibility = Visibility.Visible;
         }
 
-        /*public void ButtonBack_Click(object sender, RoutedEventArgs e)
+        public void ButtonBack_Click(object sender, RoutedEventArgs e)
         {
             StackMenu.Visibility = Visibility.Visible;
             canvas.Visibility = Visibility.Hidden;
             ButtonBack.Visibility = Visibility.Hidden;
-        }*/
+        }
 
         private void ButtonContinue_Click(object sender, RoutedEventArgs e)
         {
@@ -51,6 +51,13 @@ namespace FillWords.WPFGUI
         {
             this.Close();
         }
+
+/*        private void ButtonBack(object sender, RoutedEventArgs e)
+        {
+            StackMenu.Visibility = Visibility.Visible;
+            canvas.Visibility = Visibility.Collapsed;
+            ButtonBack.Visibility = Visibility.Collapsed;
+        }*/
 
         public MainWindow()
         {
