@@ -51,9 +51,13 @@
                     MinWidth="50"
                     MinHeight="250"
                     Margin="10,10, 10, 10"
-                    DockPanel.Dock="Bottom"></Canvas>
+                    DockPanel.Dock="Top">
+                <StackPanel x:Name="canvasPanel">
+                    
+                </StackPanel>
+            </Canvas>
             <Button x:Name="ButtonBack"
-                    DockPanel.Dock="Top"
+                    DockPanel.Dock="Bottom"
                     Height="20"
                     Visibility="Hidden"
                     Click="ButtonBack_Click"

@@ -37,7 +37,15 @@ namespace FillWords.WPFGUI
 
         private void ButtonContinue_Click(object sender, RoutedEventArgs e)
         {
-            //Click
+            char[,] board = Continue.StartContinue();
+            if (board.Length == 0)
+            {
+                ButtonStart_Click(sender, e);
+            }
+            else
+            {
+                //  
+            }
         }
 
         private void ButtonStatistic_Click(object sender, RoutedEventArgs e)
@@ -62,6 +70,8 @@ namespace FillWords.WPFGUI
         public MainWindow()
         {
             InitializeComponent();
+            Application.Current.MainWindow.Height = 700;
+            Application.Current.MainWindow.Width = 600;
         }
 
         private void Canvas_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -75,7 +85,18 @@ namespace FillWords.WPFGUI
                 DrawField(i, 0, i, height);
             for (int i = 0; i < height; i += Convert.ToInt32(height / 8))
                 DrawField(0, i, width, i);
-            canvas.Height = width; 
+            canvas.Height = width;
+
+            string letter = "а";
+            var text = new TextBlock()
+            {
+                FontSize = 0.1 * width,
+                Text = letter,
+                Padding = new Thickness(0, 0, 0, 0),
+                Margin = new Thickness(0, 0, 0, 0),
+                HorizontalAlignment = HorizontalAlignment.Left
+            };
+            canvasPanel.Children.Add(text);
         }
 
         void DrawField(double x1, double y1, double x2, double y2)
