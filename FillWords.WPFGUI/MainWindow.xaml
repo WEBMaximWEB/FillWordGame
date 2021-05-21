@@ -44,15 +44,15 @@
 				>Выход</Button>
 
         </StackPanel>
-        <DockPanel>
+        <DockPanel x:Name="Game" Visibility="Hidden">
             <Canvas x:Name="canvas"
-					Visibility="Hidden"
                     SizeChanged="Canvas_SizeChanged"
                     Background="#9A9898"
                     MinWidth="50"
                     MinHeight="250"
                     Margin="10,10, 10, 10"
-                    DockPanel.Dock="Top">
+                    DockPanel.Dock="Top"
+                    MouseLeftButtonDown="Canvas_Click">
                 <Grid x:Name="canvasGrid">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="2*" />
@@ -66,9 +66,18 @@
             <Button x:Name="ButtonBack"
                     DockPanel.Dock="Bottom"
                     Height="20"
-                    Visibility="Hidden"
+                    Margin="5"
                     Click="ButtonBack_Click"
-                    >Назад</Button>
+                    >Назад
+            </Button>
+            <Button x:Name="ButtonSelectWord"
+                    DockPanel.Dock="Bottom"
+                    Height="20"
+                    Margin="5"
+                    Click="ButtonSelectWord_Click"
+                    >Выбрать слово
+            </Button>
+            <TextBlock x:Name="Score"></TextBlock>
         </DockPanel>
     </Grid>
 </Window>
