@@ -87,16 +87,7 @@ namespace FillWords.WPFGUI
                 DrawField(0, i, width, i);
             canvas.Height = width;
 
-            string letter = "а";
-            var text = new TextBlock()
-            {
-                FontSize = 0.1 * width,
-                Text = letter,
-                Padding = new Thickness(0, 0, 0, 0),
-                Margin = new Thickness(0, 0, 0, 0),
-                HorizontalAlignment = HorizontalAlignment.Left
-            };
-            canvasPanel.Children.Add(text);
+            DrawLetters();
         }
 
         void DrawField(double x1, double y1, double x2, double y2)
@@ -111,6 +102,27 @@ namespace FillWords.WPFGUI
                 SnapsToDevicePixels = true
             };
             canvas.Children.Add(line);
+        }
+
+        private void DrawLetters()
+        {
+            int size = 8;
+            char[,] letters = WordGeneration.GetWordGeneration(size);
+            for (int i = 0; i < size; i++)
+            {
+                for (int j = 0; j < size; j++)
+                {
+                    var text = new TextBlock()
+                    {
+                        FontSize = 125,
+                        Text = letters[i,j].ToString(),
+                        Padding = new Thickness(0, 0, 0, 0),
+                        Margin = new Thickness(20, -10, 0, 0),
+                        HorizontalAlignment = HorizontalAlignment.Left
+                    };
+                    canvas.Children.Add(text);
+                }
+            }
         }
     }
 }

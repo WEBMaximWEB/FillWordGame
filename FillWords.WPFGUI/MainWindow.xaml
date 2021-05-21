@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FillWords.WPFGUI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800"
+        ResizeMode="NoResize">
     <Grid>
         <StackPanel Name="StackMenu"
 				HorizontalAlignment="Center"
@@ -52,9 +53,15 @@
                     MinHeight="250"
                     Margin="10,10, 10, 10"
                     DockPanel.Dock="Top">
-                <StackPanel x:Name="canvasPanel">
-                    
-                </StackPanel>
+                <Grid x:Name="canvasGrid">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="3*" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBox FontSize="120" Grid.Column="0" Text="Это 1"/>
+                    <TextBox Grid.Column="1" Text="Это 2"/>
+                </Grid>
             </Canvas>
             <Button x:Name="ButtonBack"
                     DockPanel.Dock="Bottom"
