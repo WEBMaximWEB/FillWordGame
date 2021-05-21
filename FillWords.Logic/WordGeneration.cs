@@ -24,7 +24,6 @@ namespace FillWords.Logic
                 int maxCount = rnd.Next(2, 19);
                 int count = 1;
                 board = AddStartLetter(board, width);
-                count++;
                 while (count <= maxCount && CheckAllDerections(board, width, Sneak.x.Peek(), Sneak.y.Peek()))
                 {
                     board = AddLetter(board, width, Sneak.x.Peek(), Sneak.y.Peek());
@@ -32,6 +31,8 @@ namespace FillWords.Logic
                 }
                 while (!CheckField(board, width))
                 {
+                    if (count <= 0)
+                        break;
                     board[Sneak.x.Pop(), Sneak.y.Pop()] = null;
                     count--;
                     if (count < 3)
@@ -158,7 +159,7 @@ namespace FillWords.Logic
 
         private static string[,] AddLetter(string[,] board, int width, int x, int y)
         {
-            //if (!CheckAllDerections(board, width, x, y))
+            if (CheckAllDerections(board, width, x, y))
             {
                 Random rnd = new Random();
                 int derection;

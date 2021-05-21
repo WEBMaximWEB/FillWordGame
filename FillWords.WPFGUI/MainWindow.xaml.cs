@@ -16,28 +16,41 @@ using FillWords.Logic;
 
 namespace FillWords.WPFGUI
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
+    public static class Board
+    {
+        public static int Size = 8;
+        public static char[,] Letters = WordGeneration.GetWordGeneration(Size);
+        public static char[,] SelectLetters = new char[Size, Size];
+        public static string Word = string.Empty;
+        public static int LastSelectCellX = 0;
+        public static int LastSelectCellY = 0;
+        public static int Score = 0;
+    }
     public partial class MainWindow : Window
     {
         public void ButtonStart_Click(object sender, RoutedEventArgs e)
         {
+            Game.Visibility = Visibility.Visible;
             StackMenu.Visibility = Visibility.Collapsed;
-            canvas.Visibility = Visibility.Visible;
-            ButtonBack.Visibility = Visibility.Visible;
         }
 
         public void ButtonBack_Click(object sender, RoutedEventArgs e)
         {
+            Game.Visibility = Visibility.Hidden;
             StackMenu.Visibility = Visibility.Visible;
-            canvas.Visibility = Visibility.Hidden;
-            ButtonBack.Visibility = Visibility.Hidden;
         }
 
         private void ButtonContinue_Click(object sender, RoutedEventArgs e)
         {
-            //Click
+            char[,] board = Continue.StartContinue();
+            if (board.Length == 0)
+            {
+                ButtonStart_Click(sender, e);
+            }
+            else
+            {
+                //  
+            }
         }
 
         private void ButtonStatistic_Click(object sender, RoutedEventArgs e)
@@ -52,16 +65,73 @@ namespace FillWords.WPFGUI
             this.Close();
         }
 
-/*        private void ButtonBack(object sender, RoutedEventArgs e)
+        private void ButtonSelectWord_Click(object sender, RoutedEventArgs e)
         {
-            StackMenu.Visibility = Visibility.Visible;
-            canvas.Visibility = Visibility.Collapsed;
-            ButtonBack.Visibility = Visibility.Collapsed;
-        }*/
+            if (Sneak.listWords.Contains(Board.Word))
+            {
+                Sneak.listWords.Remove(Board.Word);
+                Board.Score += 5 * Board.Word.Length;
+                Score.Text = "Счет: " + Board.Score.ToString();
+            }
+            else
+            {
+                DrawLetters();
+                Board.Word = String.Empty;
+            }
+            Board.LastSelectCellX = 0;
+            Board.LastSelectCellY = 0;
+            Board.SelectLetters = new char[Board.Size, Board.Size];
+        }
+
+        private void Canvas_Click(object sender, MouseEventArgs e)
+        {
+            Point pt = e.GetPosition(this);
+            var width = canvas.ActualWidth;
+            int cellX = (int)Math.Ceiling(pt.X / (width / 8) - 0.13);
+            int cellY = (int)Math.Ceiling(pt.Y / (width / 8) - 0.13);
+            SelectCell(cellX, cellY);
+        }
+
+        private void SelectCell(int cellX, int cellY)
+        {
+            if (CheckDeraction(cellX, cellY))
+            {
+                var text = new TextBlock()
+                {
+                    FontSize = 60,
+                    Text = Board.Letters[cellY - 1, cellX - 1].ToString(),
+                    Margin = new Thickness(20 + (cellX - 1) * 70, -10 + (cellY - 1) * 70, 0, 0),
+                    Foreground = Brushes.Yellow,
+                    HorizontalAlignment = HorizontalAlignment.Left
+                };
+                canvas.Children.Add(text);
+                Board.SelectLetters[cellY - 1, cellX - 1] = 's';
+                Board.LastSelectCellX = cellX;
+                Board.LastSelectCellY = cellY;
+                Board.Word += Board.Letters[cellY - 1, cellX - 1].ToString();
+            }    
+        }
+
+        private bool CheckDeraction(int cellX, int cellY)
+        {
+            if (Board.LastSelectCellX == 0)
+                return true;
+            else if (Board.SelectLetters[cellY - 1, cellX - 1] == 's')
+                return false;
+            else if (Math.Abs(cellX - Board.LastSelectCellX) <= 1 &&
+                     Math.Abs(cellY - Board.LastSelectCellY) == 0)
+                return true;
+            else if (Math.Abs(cellX - Board.LastSelectCellX) <= 0 &&
+                     Math.Abs(cellY - Board.LastSelectCellY) == 1)
+                return true;
+            return false;
+        }
 
         public MainWindow()
         {
             InitializeComponent();
+            Application.Current.MainWindow.Height = 700;
+            Application.Current.MainWindow.Width = 600;
         }
 
         private void Canvas_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -75,7 +145,9 @@ namespace FillWords.WPFGUI
                 DrawField(i, 0, i, height);
             for (int i = 0; i < height; i += Convert.ToInt32(height / 8))
                 DrawField(0, i, width, i);
-            canvas.Height = width; 
+            canvas.Height = width;
+
+            DrawLetters();
         }
 
         void DrawField(double x1, double y1, double x2, double y2)
@@ -90,6 +162,24 @@ namespace FillWords.WPFGUI
                 SnapsToDevicePixels = true
             };
             canvas.Children.Add(line);
+        }
+
+        private void DrawLetters()
+        {
+            for (int i = 0; i < Board.Size; i++)
+            {
+                for (int j = 0; j < Board.Size; j++)
+                {
+                    var text = new TextBlock()
+                    {
+                        FontSize = 60,
+                        Text = Board.Letters[i, j].ToString(),
+                        Margin = new Thickness(20 + j * 70, -10 + i * 70, 0, 0),
+                        HorizontalAlignment = HorizontalAlignment.Left
+                    };
+                    canvas.Children.Add(text);
+                }
+            }
         }
     }
 }
