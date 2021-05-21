@@ -114,10 +114,9 @@ namespace FillWords.WPFGUI
                 {
                     var text = new TextBlock()
                     {
-                        FontSize = 125,
-                        Text = letters[i,j].ToString(),
-                        Padding = new Thickness(0, 0, 0, 0),
-                        Margin = new Thickness(20, -10, 0, 0),
+                        FontSize = 60,
+                        Text = letters[i, j].ToString(),
+                        Margin = new Thickness(20 + j * 70, -10 + i * 70, 0, 0),
                         HorizontalAlignment = HorizontalAlignment.Left
                     };
                     canvas.Children.Add(text);
