@@ -11,6 +11,8 @@
         <StackPanel Name="StackMenu"
 				HorizontalAlignment="Center"
 				VerticalAlignment="Center">
+            <TextBlock x:Name="Player">Ник:</TextBlock>
+            <TextBox>name</TextBox>
             <Button Name="ButtonStart"
 				Margin="2"
 				Click="ButtonStart_Click"
@@ -35,6 +37,14 @@
 				BorderBrush="#9A6111"
 				>Статистика</Button>
 
+            <Button Name="ButtonSettings"
+				Margin="2"
+				Click="ButtonSettings_Click"
+				Background="#E18E19"
+				Width="110"
+				BorderBrush="#9A6111"
+				>Настройки</Button>
+
             <Button Name="ButtonExit"
 				Margin="2"
 				Click="ButtonExit_Click"
@@ -42,7 +52,26 @@
 				Width="110"
 				BorderBrush="#9A6111"
 				>Выход</Button>
+        </StackPanel>
+        <StackPanel Name="StackSettings"
+                Visibility="Hidden"
+				HorizontalAlignment="Center"
+				VerticalAlignment="Center">
+            <Button Name="ButtonMusic"
+				Margin="2"
+				Click="ButtonMusic_Click"
+				Background="#E18E19"
+				Width="110"
+				BorderBrush="#9A6111"
+				>Музыка</Button>
 
+            <Button Name="ButtonBackSettings"
+				Margin="2"
+				Click="ButtonBackSettings_Click"
+				Background="#E18E19"
+				Width="110"
+				BorderBrush="#9A6111"
+				>Назад</Button>
         </StackPanel>
         <DockPanel x:Name="Game" Visibility="Hidden">
             <Canvas x:Name="canvas"

@@ -21,12 +21,14 @@ namespace FillWords.Logic
             else
             {
                 size = Convert.ToInt32(saveBoard[0]);
+                board = new char[size, size];
                 int index = 1;
                 for(int i = 0; i < size; i++)
                 {
                     for(int j = 0; j < size; j++)
                     {
-                        board[i, j] = saveBoard[index][0];
+                        string str = saveBoard[index];
+                        board[i, j] = str[0];
                         index++;
                     }
                 }
@@ -37,6 +39,8 @@ namespace FillWords.Logic
         public static void WriteOnFile(char[,] board , int size)
         {
             string path = "board.txt";
+            File.WriteAllText(path, string.Empty);
+
             string[] arr = new string[size * size + 1];
             int index = 1;
             arr[0] = size.ToString();
@@ -45,9 +49,20 @@ namespace FillWords.Logic
                 for (int j = 0; j < size; j++)
                 {
                     arr[index] = board[i, j].ToString();
+                    index++;
                 }
             }
             File.WriteAllLines(path, arr);
+        }
+
+        public static bool CheckFile()
+        {
+            string path = "board.txt";
+            string[] arr = File.ReadAllLines(path);
+            if (arr.Length == 0)
+                return false;
+            else
+                return true;
         }
     }
 }

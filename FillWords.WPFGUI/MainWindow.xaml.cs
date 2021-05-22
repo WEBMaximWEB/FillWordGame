@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -21,11 +22,13 @@ namespace FillWords.WPFGUI
         public static int Size = 8;
         public static char[,] Letters = WordGeneration.GetWordGeneration(Size);
         public static char[,] SelectLetters = new char[Size, Size];
+        public static char[,] GuessedLetters = new char[Size, Size];
         public static string Word = string.Empty;
         public static int LastSelectCellX = 0;
         public static int LastSelectCellY = 0;
         public static int Score = 0;
     }
+
     public partial class MainWindow : Window
     {
         public void ButtonStart_Click(object sender, RoutedEventArgs e)
@@ -38,26 +41,42 @@ namespace FillWords.WPFGUI
         {
             Game.Visibility = Visibility.Hidden;
             StackMenu.Visibility = Visibility.Visible;
+            Rating.CheckRating(Board.Score, Player.Text);
+            Continue.WriteOnFile(Board.Letters, Board.Size);
         }
 
         private void ButtonContinue_Click(object sender, RoutedEventArgs e)
         {
             char[,] board = Continue.StartContinue();
-            if (board.Length == 0)
-            {
-                ButtonStart_Click(sender, e);
-            }
-            else
-            {
-                //  
-            }
+            if (Continue.CheckFile())
+                Board.Letters = Continue.StartContinue();
+            ButtonStart_Click(sender, e);
         }
 
         private void ButtonStatistic_Click(object sender, RoutedEventArgs e)
         {
-            //Rating.CheckRating(100, "Max");
             var window1 = new StatisticWindow();
             window1.Show();
+        }
+
+        private void ButtonSettings_Click(object sender, RoutedEventArgs e)
+        {
+            StackSettings.Visibility = Visibility.Visible;
+            StackMenu.Visibility = Visibility.Hidden;
+        }
+
+        private void ButtonMusic_Click(object sender, RoutedEventArgs e)
+        {
+            SoundPlayer sp = new SoundPlayer();
+            sp.SoundLocation = "Shopen.wav";
+            sp.Load();
+            sp.PlayLooping();
+        }
+
+        private void ButtonBackSettings_Click(object sender, RoutedEventArgs e)
+        {
+            StackSettings.Visibility = Visibility.Hidden;
+            StackMenu.Visibility = Visibility.Visible;
         }
 
         private void ButtonExit_Click(object sender, RoutedEventArgs e)
@@ -72,6 +91,14 @@ namespace FillWords.WPFGUI
                 Sneak.listWords.Remove(Board.Word);
                 Board.Score += 5 * Board.Word.Length;
                 Score.Text = "Счет: " + Board.Score.ToString();
+                for(int i = 0; i < Board.Size; i++)
+                {
+                    for(int j = 0; j < Board.Size; j++)
+                    {
+                        if (Board.SelectLetters[i, j] == 's')
+                            Board.GuessedLetters[i, j] = 's';
+                    }
+                }
             }
             else
             {
@@ -177,6 +204,8 @@ namespace FillWords.WPFGUI
                         Margin = new Thickness(20 + j * 70, -10 + i * 70, 0, 0),
                         HorizontalAlignment = HorizontalAlignment.Left
                     };
+                    if (Board.GuessedLetters[i, j] == 's')
+                        text.Foreground = Brushes.Gray;
                     canvas.Children.Add(text);
                 }
             }

@@ -128,7 +128,7 @@ namespace FillWords.Logic
             return false;
         }
 
-        private static bool CheckAllDerections(string[,] board, int width, int x, int y)
+        public static bool CheckAllDerections(string[,] board, int width, int x, int y)
         {
             if (CheckDerections(board, width, x, y, 0))
                 return true;
