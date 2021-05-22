@@ -23,6 +23,7 @@ namespace FillWords.Logic
                 {
                     Arr[i] = ratingValue;
                     WriteOnFile(i, name);
+                    break;
                 }
             }
             for (int i = 0; i < ArrString.Length; i++)

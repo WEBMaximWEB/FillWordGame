@@ -11,8 +11,8 @@
         <StackPanel Name="StackMenu"
 				HorizontalAlignment="Center"
 				VerticalAlignment="Center">
-            <TextBlock x:Name="Player">Ник:</TextBlock>
-            <TextBox>name</TextBox>
+            <TextBlock>Ник:</TextBlock>
+            <TextBox x:Name="Player">name</TextBox>
             <Button Name="ButtonStart"
 				Margin="2"
 				Click="ButtonStart_Click"

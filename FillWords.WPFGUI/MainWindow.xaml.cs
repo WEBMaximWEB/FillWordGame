@@ -31,13 +31,13 @@ namespace FillWords.WPFGUI
 
     public partial class MainWindow : Window
     {
-        public void ButtonStart_Click(object sender, RoutedEventArgs e)
+        private void ButtonStart_Click(object sender, RoutedEventArgs e)
         {
             Game.Visibility = Visibility.Visible;
             StackMenu.Visibility = Visibility.Collapsed;
         }
 
-        public void ButtonBack_Click(object sender, RoutedEventArgs e)
+        private void ButtonBack_Click(object sender, RoutedEventArgs e)
         {
             Game.Visibility = Visibility.Hidden;
             StackMenu.Visibility = Visibility.Visible;
@@ -67,7 +67,7 @@ namespace FillWords.WPFGUI
 
         private void ButtonMusic_Click(object sender, RoutedEventArgs e)
         {
-            SoundPlayer sp = new SoundPlayer();
+            var sp = new SoundPlayer();
             sp.SoundLocation = "Shopen.wav";
             sp.Load();
             sp.PlayLooping();
@@ -99,6 +99,8 @@ namespace FillWords.WPFGUI
                             Board.GuessedLetters[i, j] = 's';
                     }
                 }
+                if (Sneak.listWords.Count == 0)
+                    Board.Score += 100;
             }
             else
             {
@@ -114,8 +116,8 @@ namespace FillWords.WPFGUI
         {
             Point pt = e.GetPosition(this);
             var width = canvas.ActualWidth;
-            int cellX = (int)Math.Ceiling(pt.X / (width / 8) - 0.13);
-            int cellY = (int)Math.Ceiling(pt.Y / (width / 8) - 0.13);
+            int cellX = (int)Math.Ceiling(pt.X / (width / Board.Size) - 0.13);
+            int cellY = (int)Math.Ceiling(pt.Y / (width / Board.Size) - 0.13);
             SelectCell(cellX, cellY);
         }
 
@@ -168,16 +170,16 @@ namespace FillWords.WPFGUI
             var width = canvas.ActualWidth;
             var height = canvas.ActualHeight;
 
-            for (int i = 0; i < width; i += Convert.ToInt32(width / 8))
+            for (int i = 0; i < width; i += Convert.ToInt32(width / Board.Size))
                 DrawField(i, 0, i, height);
-            for (int i = 0; i < height; i += Convert.ToInt32(height / 8))
+            for (int i = 0; i < height; i += Convert.ToInt32(height / Board.Size))
                 DrawField(0, i, width, i);
             canvas.Height = width;
 
             DrawLetters();
         }
 
-        void DrawField(double x1, double y1, double x2, double y2)
+        private void DrawField(double x1, double y1, double x2, double y2)
         {
             var line = new Line(){
                 X1 = x1,
